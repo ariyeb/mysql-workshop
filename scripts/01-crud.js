@@ -15,11 +15,11 @@ connection.connect((err) => {
     console.log('connected as id ' + connection.threadId);
 });
 
-const data = [];
+const users = [];
 
 for (let i = 0; i < 200; i++) {
     const gender = random(0, 1) === 0 ? "male" : "female";
-    data.push([
+    users.push([
         faker.name.firstName(gender),
         faker.name.lastName(),
         faker.internet.userName(),
@@ -35,7 +35,7 @@ const query = "INSERT INTO users(first_name, last_name, username, age, gender, b
 
 connection.query(
     query,
-    [data],
+    [users],
     function (err, result) {
         if (err) throw err;
         console.log(result);
