@@ -1,0 +1,11 @@
+services:
+  mysql:
+    image: mysql
+    ports:
+      - "4000:3306"
+    volumes:
+      - "./data:/var/lib/mysql"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root321
+    
+    
