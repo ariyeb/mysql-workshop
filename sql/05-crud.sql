@@ -148,6 +148,102 @@ WHERE
   users.username LIKE "_a%";
 --   בנו טבלה מתוך היוזרים שיש בה עמודה של יוזרניים וספק אימייל
 SELECT
-  users.email
+  users.username,
+  CASE
+    WHEN users.email LIKE "%@gmail.com" THEN "gmail"
+    WHEN users.email LIKE "%@hotmail.com" THEN "hotmail"
+    ELSE "yahoo"
+  END AS email_provider
 FROM
-  users;
+  users
+ORDER BY
+  email_provider;
+-- IN()
+SELECT
+  users.username
+FROM
+  users
+WHERE
+  users.username IN("Tanner45", "Zetta70", "Jaiden9");
+--
+SET
+  @age = 25,
+  @is_premium = NULL,
+  @gender = "male" COLLATE utf8mb4_0900_ai_ci;
+SELECT
+  @age;
+SELECT
+  users.username,
+  users.age,
+  users.gender,
+  users.is_premium
+FROM
+  users
+WHERE
+  (
+    users.age = @age
+    OR @age IS NULL
+  )
+  AND (
+    users.is_premium = @is_premium
+    OR @is_premium IS NULL
+  )
+  AND (
+    users.gender = @gender
+    OR @gender IS NULL
+  );
+--  UPDATE
+SELECT
+  users.username,
+  users.age,
+  users.gender
+FROM
+  users
+WHERE
+  users.age = 46;
+UPDATE
+  users
+SET
+  users.age = users.age + 1,
+  users.username = CONCAT(users.username, "-46")
+WHERE
+  users.age = 45;
+SELECT
+  *
+FROM
+  users
+WHERE
+  users.email LIKE "%@yahoo.com";
+UPDATE
+  users
+SET
+  users.email = REPLACE(users.email, "yahoo", "gmail")
+WHERE
+  users.email LIKE "%@yahoo.com";
+--   DELETE
+SELECT
+  users.username
+FROM
+  users
+WHERE
+  users.username LIKE "c%";
+DELETE FROM
+  users
+WHERE
+  users.username LIKE "c%";
+SELECT
+  users.id,
+  users.username,
+  users.created_at
+FROM
+  users
+ORDER BY
+  users.id DESC
+LIMIT
+  5;
+DELETE FROM
+  users
+ORDER BY
+  users.id DESC
+LIMIT
+  5;
