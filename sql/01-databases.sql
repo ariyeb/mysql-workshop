@@ -1,0 +1,6 @@
+SHOW DATABASES;
+CREATE DATABASE db_example;
+USE db_example;
+SELECT
+  DATABASE();
+DROP DATABASE IF EXISTS db_example;
