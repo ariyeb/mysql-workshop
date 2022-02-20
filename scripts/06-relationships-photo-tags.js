@@ -20,7 +20,7 @@ for (let photoId = 1; photoId <= 650; photoId++) {
     if (tags == null) continue;
     tags.forEach(tag => photoTags.push([photoId, tag]));
 }
-const photoTagsQuery = "INSERT INTO photo_tags(photo_id, tag_id) VALUES ?";
+const photoTagsQuery = "INSERT INTO photos_tags(photo_id, tag_id) VALUES ?";
 
 connection.query(
     photoTagsQuery,
