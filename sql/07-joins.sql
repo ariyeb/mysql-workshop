@@ -140,4 +140,47 @@ DELETE FROM
 WHERE
   persons.id = 2;
 --   שם מלא, יוזר ניים, אימייל
-  -- בטבלה יוצגו כל האנשים שאין להם יוזר
+SELECT
+  CONCAT(persons.first_name, " ", persons.last_name) AS full_name,
+  users.username,
+  users.email
+FROM
+  persons
+  JOIN users ON persons.id = users.person_id
+ORDER BY
+  full_name;
+-- בטבלה יוצגו כל האנשים שאין להם יוזר
+SELECT
+  CONCAT(persons.first_name, " ", persons.last_name) AS full_name
+FROM
+  persons
+  LEFT JOIN users ON persons.id = users.person_id
+WHERE
+  person_id IS NULL;
+--   OUTER JOIN
+SELECT
+  model,
+  name
+FROM
+  (
+    (
+      SELECT
+        computers.model,
+        manufacturers.name
+      FROM
+        computers
+        LEFT JOIN manufacturers ON computers.manufacturer_id = manufacturers.id
+    )
+    UNION
+      (
+        SELECT
+          computers.model,
+          manufacturers.name
+        FROM
+          computers
+          RIGHT JOIN manufacturers ON computers.manufacturer_id = manufacturers.id
+      )
+  ) AS computers_manufacturers
+WHERE
+  model IS NULL
+  OR name IS NULL;
